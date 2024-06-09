@@ -19,9 +19,15 @@ using namespace std;
 
 HaCam()
 {
-	//file("")
     fastio;
-    
+    //file("text");
+    ll n;
+    cin >> n;
+    ll Res = n - 1;
+    for (ll i = 2; i * i <= n; i++)
+        if (n % i == 0)
+            Res = min(Res, (n / i) + i - 2);
+    cout << Res ;
     return 0;
 }
 

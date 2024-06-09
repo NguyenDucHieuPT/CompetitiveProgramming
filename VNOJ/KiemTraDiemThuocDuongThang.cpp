@@ -19,9 +19,11 @@ using namespace std;
 
 HaCam()
 {
-	//file("")
     fastio;
-    
+    //file("text");
+    ll Xp, Yp, A, B, C;
+    cin >> Xp >> Yp >> A >> B >> C;
+    cout << (A * Xp + B * Yp + C == 0 ? "YES" : "NO");
     return 0;
 }
 
