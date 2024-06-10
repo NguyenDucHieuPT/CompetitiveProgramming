@@ -11,18 +11,28 @@ using namespace std;
 #define FL(i,l,r) for (int i=l;i<r;i++)
 #define FE(i,l,r) for (int i=l;i<=r;i++)
 #define FR(i,r,l) for (int i=r-1;i>=l;i--)
-#define FN(n) for (int i=1;i<=n;i++)
 #define FT(x,a) for (auto &x: a)
 #define ALL(v) (v).begin(), (v).end()
 #define sz(x) (int)(x).size()
 #define HaCam int main
 
-
+const int MaxN = 1e6 + 2;
+int A[MaxN], dpp[MaxN];
 HaCam()
 {
-	//file("")
     fastio;
-    
+    //file("PAY");
+    ll x1, x2, x3, x4, y;
+    cin >> x1 >> x2 >> x3 >> x4;
+    cin >> y;
+    if (y > 200)
+    	cout << 50 * x1 + 50 * x2 + 100 * x3 + (y - 200) * x4;
+    else if (y > 100)
+    	cout << 50 * x1 + 50 * x2 + (y - 100) * x3;
+    else if (y > 50)
+    	cout << 50 * x1 + (y - 50) * x2;
+    else
+    	cout << y * x1;
     return 0;
 }
 

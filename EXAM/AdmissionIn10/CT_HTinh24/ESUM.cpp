@@ -17,12 +17,33 @@ using namespace std;
 #define sz(x) (int)(x).size()
 #define HaCam int main
 
-
+ll ToHop(ll x)
+{
+	if (x < 2)
+		return 0;
+	else
+		return x * (x - 1) / 2;
+}
 HaCam()
 {
-	//file("")
     fastio;
-    
+    //file("ESUM");
+    int n;
+    cin >> n;
+    ll odd = 0, even = 0;
+    FN(n)
+    {
+    	ll x;
+    	cin >> x;
+    	if (x % 2)
+    		even ++;
+    	else
+    		odd ++;
+    }
+    if (even % 2)
+    	cout << even * odd;
+    else
+    	cout << ToHop(even) + ToHop(odd);
     return 0;
 }
 

@@ -11,18 +11,37 @@ using namespace std;
 #define FL(i,l,r) for (int i=l;i<r;i++)
 #define FE(i,l,r) for (int i=l;i<=r;i++)
 #define FR(i,r,l) for (int i=r-1;i>=l;i--)
-#define FN(n) for (int i=1;i<=n;i++)
 #define FT(x,a) for (auto &x: a)
 #define ALL(v) (v).begin(), (v).end()
 #define sz(x) (int)(x).size()
 #define HaCam int main
 
-
+const int MaxN = 1e6 + 2;
+int du[MaxN];
+void sieve(int n)
+{
+	FE(i, 1, n)
+		du[i] = 1;
+	FE(i, 2, n)
+		for(int j = i; j <= n; j += i)
+				du[j]++;
+}
 HaCam()
 {
-	//file("")
     fastio;
-    
+    //file("COUNT");
+    int n;
+    cin >> n;
+    sieve(MaxN);
+    int res = 1;
+    FE(i, 1, n)
+    {
+    	int x;
+    	cin >> x;
+    	if (du[res] < du[x]) 
+    		res = x;
+    }
+    cout << du[res];
     return 0;
 }
 
