@@ -38,9 +38,9 @@ int queryMax(int l, int r)
 
 int TotalWater(int x)
 {
-	ll res = 0;
+	int res = 0;
 	FE(i, 2, n - 1)
-		res += max(0ll, (ll) min(queryMax(1, i - 1), queryMax(i + 1, n)) - max(a[i], x));
+		res += max(0, min(queryMax(1, i - 1), queryMax(i + 1, n)) - max(a[i], x));
 
 	return res;
 }
