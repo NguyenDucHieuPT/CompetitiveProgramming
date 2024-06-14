@@ -36,7 +36,7 @@ int queryMax(int l, int r)
     return max(st[k][l], st[k][r - (1 << k) + 1]);
 }
 
-ll TotalWater(int x)
+int TotalWater(int x)
 {
 	ll res = 0;
 	FE(i, 2, n - 1)
