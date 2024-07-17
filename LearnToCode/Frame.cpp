@@ -1,11 +1,8 @@
-//author Hieu Soc
-//school THPT Hung Hoa
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define ii pair<int,int>
 #define fi first
 #define se second
+#define BIT(x, i) ((x) & (1 << (i)))
 #define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
 #define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
 #define FL(i,l,r) for (int i=l;i<r;i++)
@@ -14,13 +11,37 @@ using namespace std;
 #define FT(x,a) for (auto &x: a)
 #define ALL(v) (v).begin(), (v).end()
 #define sz(x) (int)(x).size()
-#define HaCam int main
+#define HaCam int main(void)
 
+using ll = long long;
+using ld = long double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
 
-HaCam()
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MOD = 1e9 + 7;
+
+namespace solve
 {
-	//file("")
+	void process(void)
+	{
+		
+	}
+}
+
+
+HaCam
+{
     fastio;
+    file("");
+    solve::process();
+
     
     return 0;
 }
