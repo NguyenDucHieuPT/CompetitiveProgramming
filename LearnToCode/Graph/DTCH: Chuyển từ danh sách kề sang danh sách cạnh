@@ -39,25 +39,46 @@ const int MOD = 1e9 + 7;
 
 namespace solve
 {
-	vector<int> adj[MaN];
+	vector<pii> adj;
+	void Get(const int i)
+	{
+		string str;
+		getline(cin, str);
+		str.push_back(' ');
+		int number = 0;
+		bool ok = 0;
+		FT(x, str)
+		{
+
+			if (isdigit(x))
+			{
+				ok = 1;
+				number = number * 10 + (x - '0');
+			} 
+			else if (ok)
+			{
+				ok = 0;
+					adj.push_back({i, number});
+				number = 0;
+			}
+			
+		}
+	}
+	bool comp(pii x, pii y) 
+	{
+    	return (x.fi < y.fi) || ((x.fi == y.fi) && (x.se < y.se));
+	}
+
     void process(void)
     {
-    	int n, m;
-    	cin >> n >> m;
-    	FE(i, 1, m)
-    	{
-    		int a, b;
-    		cin >> a >> b;
-    		adj[a].push_back(b);
-    		adj[b].push_back(a);
-    	}
+    	int n;
+    	cin >> n;
+    	cin.ignore(1);
     	FE(i, 1, n)
-    	{
-    		cout << i << " : ";
-    		FT(x, adj[i])
-    			cout << x << " ";
-    		cout << endl;
-    	}
+	    	Get(i);
+	    sort(ALL(adj), comp);
+	    FT(x, adj)
+	    	cout << x.fi << " " << x.se << endl;
     }
 }
 
