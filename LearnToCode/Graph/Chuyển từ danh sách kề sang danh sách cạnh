@@ -1,0 +1,124 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define lt(k) fixed << setprecision(k) 
+#define HaCam int main(void)
+//end #define
+
+template <class x, class y>bool max_t(x &a, y &b){return a < b ? a = b, 0 : 1;}
+template <class x, class y> bool min_t(x &a, y &b){return a > b ? a = b, 0 : 1;}
+//end template
+
+using ll = long long;
+using ld = long double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+//end using
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MaN = 1e5 + 1;
+const int MOD = 1e9 + 7;
+//endl const
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+
+namespace solve
+{
+	vector<pii> adj;
+	map <pii, bool> cnt;
+	void Get(const int i)
+	{
+		string str;
+		getline(cin, str);
+		str.push_back(' ');
+		int number = 0;
+		bool ok = 0;
+		FT(x, str)
+		{
+
+			if (isdigit(x))
+			{
+				ok = 1;
+				number = number * 10 + (x - '0');
+			} 
+			else if (ok)
+			{
+				ok = 0;
+				if (!cnt[{min(i, number), max(i, number)}])
+				{
+					adj.push_back({i, number});
+					cnt[{min(i, number), max(i, number)}] = 1;
+				}
+				number = 0;
+			}
+			
+		}
+	}
+	bool comp(pii x, pii y) 
+	{
+    	return (x.fi < y.fi) || ((x.fi == y.fi) && (x.se < y.se));
+	}
+
+    void process(void)
+    {
+    	int n;
+    	cin >> n;
+    	cin.ignore(1);
+    	FE(i, 1, n)
+	    	Get(i);
+	    sort(ALL(adj), comp);
+	    FT(x, adj)
+	    	cout << x.fi << " " << x.se << endl;
+    }
+}
+
+
+HaCam
+{
+    fastio;
+    file("key");
+    solve::process();
+
+    
+    return 0;
+}
+
+
+/**
+(((((((((((((((((((((((((((((#%@@@@@@@@@@@@@@@@@@&#(((((((((((((((((((((((((((((
+(((((((((((((((((((((((((%@@@@@@@@@@@@@@@@@@@@@@@@@@@@&#((((((((((((((((((((((((
+((((((((((((((((((((((%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#((((((((((((((((,,,,,
+(((((((((((((((((((#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%(((((((((/,,,,,,,,,
+((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%(((*,,,,,,,,,,,,,
+((((((((((((((((%@@@@@@@@@@@@@@@@@@#((((((((#&@@@@@@@@@@@@@@@%,,,,,,,,,,,,,,,,,,
+(((((((((((((((%@@@@@@@@@@@@@@@#(((((((((((((((((&@@@@@@@(,,,,,,,,,,,,,,,,,,,,,,
+((((((((((((((#@@@@@@@@@@@@@@#(((((((((((((((((((((&&/,,,,,,,,,,,,,,,,,,,,,,,,,,
+((((((((((((((@@@@@@@@@@@@@@((((((((((((((((((((#,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+(((((((((((((#@@@@@@@@@@@@@#((((((((((((((((/,,,,,,,,,,,,,,,*@@@,,,,,,,,@@@*,,,,
+(((((((((((((%@@@@@@@@@@@@@(((((((((((((/,,,,,,,,,,,,,,,,,@@@@@@@@@,,@@@@@@@@@,,
+(((((((((((((#@@@@@@@@@@@@@#((((((((,,,,,,,,**,,,,,,,,,,,,,,*@@@,,,,,,,,@@@*,,,,
+((((((((((((((@@@@@@@@@@@@@@(((/,,,,,,,,,,,,,,,,,*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+((((((((((((((#@@@@@@@@@@@@@@/,,,,,,,,,,,,,,,,,,,,,&@#*,,,,,,,,,,,,,,,,,,,,,,,,,
+(((((((((((((((%@@@@@@@@@@@@@@@#,,,,,,,,,,,,,,,,*@@@@@@@@&*,,,,,,,,,,,,,,,,,,,,,
+((((((((((((((((#@@@@@@@@@@@@@@@@@@&/,,,,,,*#@@@@@@@@@@@@@@@@@(,,,,,,,,,,,,,,,,,
+((((((((((((((*,,,%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*,,,*,,,,,,,,,,,,,
+((((((((((,,,,,,,,,,%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/,,,,,,,,,*,,,,,,,,,
+#((((/,,,,,,,,,,,,,,,,*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%,,,,,,,,,,,,,,,,,*,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,*%@@@@@@@@@@@@@@@@@@@@@@@@@@@(,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,*%@@@@@@@@@@@@@@@@&(,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+**/
