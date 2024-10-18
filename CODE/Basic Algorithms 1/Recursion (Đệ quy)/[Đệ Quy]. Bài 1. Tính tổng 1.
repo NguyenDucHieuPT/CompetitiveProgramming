@@ -1,4 +1,5 @@
-    int sum(int n)
+    //Tính tổng hàm S(n) = 1 + 2 + 3 + 4 + .. + n bằng đệ quy. Nếu bạn chưa biết thì S(n) có thể tính nhanh bằng công thức S(n) = n * (n + 1) / 2
+	ll sum(ll n)
 	{
 		if (n < 2)
 			return n;
@@ -6,7 +7,7 @@
 	}
 	void process(void)
 	{
-		int n;
+		ll n;
 		cin >> n;
 		cout << sum(n);
 	}

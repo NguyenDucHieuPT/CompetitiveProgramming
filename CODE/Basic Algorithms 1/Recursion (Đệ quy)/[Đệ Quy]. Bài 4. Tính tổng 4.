@@ -1,0 +1,13 @@
+    //Tính tổng hàm S(n) = -1 + 2 -3 + 4 - 5 + 6 + ... + (-1)^n * n bằng đệ quy. Nếu bạn chưa biết thì S(n) có thể tính nhanh bằng công thức Nếu N chẵn thì S(n) = n / 2, còn nếu N lẻ thì S(n) = (n - 1) / 2 - n
+	ll sum(ll n)
+	{
+		if (n < 1)
+			return n;
+		return n * (n % 2 ? -1 : 1) + sum(n - 1);
+	}
+	void process(void)
+	{
+		ll n;
+		cin >> n;
+		cout << sum(n);
+	}
