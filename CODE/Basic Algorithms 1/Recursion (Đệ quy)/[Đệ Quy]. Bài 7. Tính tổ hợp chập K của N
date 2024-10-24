@@ -1,0 +1,13 @@
+    // Cho 2 số nguyên dương N và K. Hãy tính tổ hợp chập K của N. Tiện thể các bạn ôn lại một vài tính chất của tổ hợp chập K của N nhé.
+    ld K_CombinationOf_N(ld n, ld k)
+	{
+		if (k < 1)
+			return 1;
+		return (n - k + 1) / k * K_CombinationOf_N(n, k - 1);
+	}
+    void process(void)
+    {
+    	ld n, k;
+    	cin >> n >> k;
+    	cout << (ll) K_CombinationOf_N(n, k);
+    }

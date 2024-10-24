@@ -1,0 +1,24 @@
+    //Cho một mảng số nguyên A gồm N phần tử, hãy kiểm tra xem mảng có đối xứng hay không bằng cách sử dụng hàm đệ quy.
+	int a[MaxN];
+	void CheckSymmetricArray(int n, int m)
+	{
+		if (a[m] != a[n - m + 1])
+		{
+			cout << "NO";
+			exit(0);
+		}
+		if (m >= n / 2)
+		{
+			cout << "YES";
+			return ;
+		}
+		CheckSymmetricArray(n, m + 1);	
+	}
+	void process(void)
+	{
+		int n;
+		cin >> n;
+		FE(i, 1, n)
+			cin >> a[i];
+		CheckSymmetricArray(n, 1);
+	}

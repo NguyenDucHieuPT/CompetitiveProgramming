@@ -1,0 +1,21 @@
+    //Cho một mảng số nguyên A gồm N phần tử, hãy in ra mảng theo thứ tự từ trái qua phải và từ phải qua trái bằng đệ quy.
+    int a[MaxN];
+	void PrintArray(int n, int m)
+	{
+		cout << a[m] << " ";
+		if (m == n)
+		{
+			cout << endl << a[m] << " ";
+			return ;
+		}
+		PrintArray(n, m + 1);
+		cout << a[m] << " ";
+	}
+	void process(void)
+	{
+		int n;
+		cin >> n;
+		FE(i, 1, n)
+			cin >> a[i];
+		PrintArray(n, 1);
+	}
