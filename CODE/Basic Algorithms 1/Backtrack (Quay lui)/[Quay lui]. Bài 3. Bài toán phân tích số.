@@ -1,0 +1,36 @@
+    //Ở một quốc gia có nloại tiền gồm các mệnh giá a1, a2, ..., an (n < 10). Có những cách nào để lấy các tờ tiền sao cho tổng mệnh giá của chúng là s? Biết rằng mỗi mệnh giá tiền có thể được lấy nhiều lần và hai cách lấy là hoán vị của nhau chỉ tính là một.
+	int a[11], CurMoney[11] = {};
+	int n, s;
+	void PrintHowToGetMoney()
+	{
+		FE(i, 1, n)
+			FE(j, 1, CurMoney[i])
+				cout << a[i] << " ";
+		cout << endl;
+		return ;
+	}
+	void GetMoneySet(int val, int pos)
+	{
+		if (s == val)
+		{
+			PrintHowToGetMoney();
+			return ;
+		}
+		if (pos == n + 1)
+			return ;
+
+		FE(i, 0, s / a[pos])
+		{
+			CurMoney[pos] = i;
+			GetMoneySet(val + i * a[pos], pos + 1);
+			CurMoney[pos] = 0;
+		}
+	}
+	void process(void)
+	{
+		cin >> n >> s;
+		FE(i, 1, n)
+			cin >> a[i];
+
+		GetMoneySet(0, 1);
+	}
