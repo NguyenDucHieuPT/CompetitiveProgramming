@@ -1,0 +1,33 @@
+    //Sinh hóa vị của số N
+	vector<int> gen;
+	string n;
+	void PrintPermutations()
+	{
+		FT(x, gen)
+			cout << n[x];
+		cout << " ";
+		return ;
+	}
+	bool Check[10] = {};
+	void Backtracking(int pos)
+	{
+		if (pos == sz(n))
+		{
+			PrintPermutations();
+			return ;
+		}
+		FL(i, 0, sz(n))
+			if (!Check[i])
+			{
+				gen.push_back(i);
+				Check[i] = 1;
+				Backtracking(pos + 1);
+				gen.pop_back();
+				Check[i] = 0;
+			}
+	}
+	void process(void)
+	{
+		cin >> n;
+		Backtracking(0);
+	}
