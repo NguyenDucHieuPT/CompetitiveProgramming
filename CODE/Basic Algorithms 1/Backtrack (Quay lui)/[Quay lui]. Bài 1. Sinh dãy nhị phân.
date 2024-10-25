@@ -1,1 +1,29 @@
     //Liệt kê tất cả các dãy nhị phân độ dài N, là dãy có tất cả N ký tự và gồm toàn các ký tự 0 và 1.
+	vector<int> gen;
+	int n;
+	void PrintBinarySequence()
+	{
+		FT(x, gen)
+			cout << x;
+		cout << " ";
+		return ;
+	}
+	void Backtracking(int pos)
+	{
+		if (pos == n)
+		{
+			PrintBinarySequence();
+			return ;
+		}
+		FE(i, 0, 1)
+		{
+			gen.push_back(i);
+			Backtracking(pos + 1);
+			gen.pop_back();
+		}
+	}
+	void process(void)
+	{
+		cin >> n;
+		Backtracking(0);
+	}b1
