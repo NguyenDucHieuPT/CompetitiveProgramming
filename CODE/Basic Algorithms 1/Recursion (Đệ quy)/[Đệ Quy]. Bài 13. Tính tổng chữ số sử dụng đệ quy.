@@ -1,0 +1,13 @@
+    //Cho một số nguyên không âm N, hãy tính tổng chữ số của N sử dụng kỹ thuật đệ quy.
+    	int TotalDigits(ll n)
+	{
+		if (n < 10)
+			return n;
+		return n % 10 + TotalDigits(n / 10);
+	}
+	void process(void)
+	{
+		ll n;
+		cin >> n;
+		cout << TotalDigits(n);
+	}

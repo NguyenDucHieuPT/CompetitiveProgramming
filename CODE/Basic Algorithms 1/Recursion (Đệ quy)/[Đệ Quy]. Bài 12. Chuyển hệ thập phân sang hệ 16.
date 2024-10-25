@@ -1,0 +1,17 @@
+    //Cho một số nguyên không âm N, hãy in ra dạng biểu diễn của N dưới hệ 16.
+    void DecimalToHexadecimal(ll n)
+	{
+		if (n < 16)
+		{
+			cout << (char) (n < 10 ? n + 48 : n + 55);
+			return;
+		}
+		DecimalToHexadecimal(n / 16);
+		cout << (char) (n % 16 < 10 ? n % 16 + 48 : n % 16 + 55);
+	}
+	void process(void)
+	{
+		ll n;
+		cin >> n;
+		DecimalToHexadecimal(n);
+	}

@@ -1,0 +1,13 @@
+    //Tính n giai thừa bằng đệ quy.
+	ll Factorial(ll n)
+	{
+		if (n < 2)
+			return 1;
+		return n * Factorial(n - 1);
+	}
+    void process(void)
+    {
+    	ll n;
+    	cin >> n;
+    	cout << Factorial(n);
+    }

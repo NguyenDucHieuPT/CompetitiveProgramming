@@ -1,0 +1,24 @@
+    //Cho một mảng số nguyên A gồm N phần tử, hãy kiểm tra xem mảng có phải là mảng tăng dần hay không, mảng tăng dần được định nghĩa là mảng mà phần tử hiện tại luôn lớn hơn các phần tử đứng trước nó.
+    int a[MaxN];
+	void CheckArrayAscending(int n)
+	{
+		if (a[n] <= a[n - 1])
+		{
+			cout << "NO";
+			exit(0);
+		}
+		if (n == 2)
+		{
+			cout << "YES";
+			return ;
+		}
+		CheckArrayAscending(n - 1);
+	}
+	void process(void)
+	{
+		int n;
+		cin >> n;
+		FE(i, 1, n)
+			cin >> a[i];
+		CheckArrayAscending(n - 1);
+	}

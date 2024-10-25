@@ -1,0 +1,21 @@
+    //Cho số nguyên không âm N, hãy tính tổng các chữ số chẵn, tổng các chữ số lẻ của N.
+    void SumOfEvenAndOddDigits(ll n, ll SumOfEvenDigits, ll SumOfOddDigits)
+	{
+		int Digit = n % 10;
+		if (Digit % 2)
+			SumOfOddDigits += Digit;
+		else
+			SumOfEvenDigits += Digit;
+		if (n < 10)
+		{
+			cout << SumOfEvenDigits << endl << SumOfOddDigits;
+			return ;
+		}
+		SumOfEvenAndOddDigits(n / 10, SumOfEvenDigits, SumOfOddDigits);
+	}
+	void process(void)
+	{
+		ll n;
+		cin >> n;
+		SumOfEvenAndOddDigits(n, 0, 0);
+	}

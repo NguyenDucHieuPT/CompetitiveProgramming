@@ -1,0 +1,14 @@
+    //Cho 2 số nguyên không âm a và b. Hãy tính a^b%(10^9+7). Kiến thức bạn cần sử dụng là Binary Exponentiation.
+    ll BinaryExponentiation(ll a, ll b)
+	{
+		a %= MOD;
+		if (b == 0)
+			return 1;
+		return ((ll) pow(BinaryExponentiation(a, b / 2) % MOD, 2) % MOD) * (b & 1 ? a % MOD : 1);
+	}
+	void process(void)
+	{
+		ll a, b;
+		cin >> a >> b;
+		cout << BinaryExponentiation(a, b);
+	}

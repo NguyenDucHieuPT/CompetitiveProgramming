@@ -1,0 +1,24 @@
+    //Cho một mảng số nguyên A gồm N phần tử đã được sắp xếp giảm dần, hãy viết hàm tìm kiếm nhị phân bằng đệ quy để kiểm tra xem phần tử X có nằm trong mảng hay không.
+    int a[MaxN];
+	int BinarySearch(int left, int right, int val)
+	{
+		if (left > right)
+			return 0;
+		int mid = (left + right) / 2;
+		if (a[mid] == val)
+			return 1;
+		if (a[mid] < val)
+			return BinarySearch(mid + 1, right, val);
+		else
+			return BinarySearch(left, mid - 1, val);
+	}
+	void process(void)
+	{
+		int n, x;
+		cin >> n;
+		FE(i, 1, n)
+			cin >> a[i];
+		cin >> x;
+		sort(a, a + n);
+		cout << BinarySearch(1, n, x);
+	}

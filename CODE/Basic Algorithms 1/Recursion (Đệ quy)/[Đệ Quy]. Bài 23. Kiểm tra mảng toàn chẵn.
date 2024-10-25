@@ -1,0 +1,24 @@
+    //Cho một mảng số nguyên A gồm N phần tử, hãy kiểm tra xem mảng có phải toàn số chẵn hay không?
+	int a[MaxN];
+	void CheckArrayForEven(int n)
+	{
+		if (a[n] % 2)
+		{
+			cout << "NO";
+			exit(0);
+		}
+		if (n == 1)
+		{
+			cout << "YES";
+			return ;
+		}
+		CheckArrayForEven(n - 1);
+	}
+	void process(void)
+	{
+		int n;
+		cin >> n;
+		FE(i, 1, n)
+			cin >> a[i];
+		CheckArrayForEven(n);
+	}

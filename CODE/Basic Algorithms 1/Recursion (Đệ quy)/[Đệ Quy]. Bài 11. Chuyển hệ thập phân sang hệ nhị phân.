@@ -1,0 +1,17 @@
+    //Cho một số nguyên không âm N, hãy in ra dạng biểu diễn nhị phân của số N.
+    void DecimalToBinary(ll n)
+	{
+		if (n < 2)
+		{
+			cout << n;
+			return;
+		}
+		DecimalToBinary(n / 2);
+		cout << n % 2;
+	}
+	void process(void)
+	{
+		ll n;
+		cin >> n;
+		DecimalToBinary(n);
+	}
