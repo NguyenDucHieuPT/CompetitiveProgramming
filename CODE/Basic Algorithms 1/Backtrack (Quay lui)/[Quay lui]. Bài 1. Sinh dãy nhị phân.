@@ -26,4 +26,4 @@
 	{
 		cin >> n;
 		Backtracking(0);
-	}b1
+	}suw
