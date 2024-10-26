@@ -1,0 +1,30 @@
+    //Bài toán: Cho tập S = {1, 2, ..., n}. In ra tất cả các tập con có chính xác k phần tử của s. Hai tập con là hoán vị của nhau chỉ tính là một.
+	int n, k;
+	vi p;
+	void CombinatorialPrinting()
+	{
+		FT(x, p)
+			cout << x << " ";
+		cout << endl;
+	}
+	void CombinatorialGeneration(int pos)
+	{
+		if (p.size() >= k)
+		{
+			CombinatorialPrinting();
+			return ;
+		}
+		if (pos > n)
+			return ;
+		p.push_back(pos);
+		CombinatorialGeneration(pos + 1);
+		p.pop_back();
+		CombinatorialGeneration(pos + 1);
+	}
+	void process(void)
+	{
+		cin >> n >> k;
+		if (k > n)
+			return;
+		CombinatorialGeneration(1);
+	}
