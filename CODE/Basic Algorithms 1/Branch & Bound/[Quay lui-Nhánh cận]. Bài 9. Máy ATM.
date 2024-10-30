@@ -1,0 +1,62 @@
+//Một máy ATM hiện có n (n ≤ 30) tờ tiền có giá trị t[1], t[2], …, t[n]. Hãy tìm cách trả ít tờ nhất với số tiền đúng bằng S (các tờ tiền có giá trị bất kỳ và có thể bằng nhau, mỗi tờ tiền chỉ được dùng một lần).
+namespace solve
+{
+	int n, s, sum = 0, cnt = 0, best_cnt = 21, t[21], t_max[21], mark[21], best_mark[21];
+	void enter()
+	{
+		cin >> n >> s;
+		FE(i, 1, n)
+			cin >> t[i];
+	}
+	void create_data()
+	{
+		t_max[n] = t[n];
+		FR(i, n, 1)
+			t_max[i] = max(t[i], t_max[i + 1]);
+	}
+	void update_best_solution()
+	{
+		if (s == sum && cnt < best_cnt)
+		{
+			best_cnt = cnt;
+			FE(i, 1, n)
+				best_mark[i] = mark[i];
+		}
+	}
+	void printf_result()
+	{
+		if (best_cnt == 21)
+		{
+			cout << -1;
+			return ;
+		}
+		cout << best_cnt << endl;
+		FE(i, 1, n)
+			if (best_mark[i])
+				cout << t[i] << " ";
+	}
+	void branch_and_bound(int i)
+	{
+		if (cnt + (s - sum) / t_max[i] >= best_cnt)
+			return;
+		FE(j, 0, 1)
+		{
+			sum += t[i] * j;
+			cnt += j;
+			mark[i] = j;
+			if (i == n)
+				update_best_solution();
+			else if (sum <= s)
+				branch_and_bound(i + 1);
+			sum -= t[i] * j;
+			cnt -= j;
+		}
+	}
+	void process(void)
+	{
+		enter();
+		create_data();
+		branch_and_bound(1);
+		printf_result();
+	}
+}
