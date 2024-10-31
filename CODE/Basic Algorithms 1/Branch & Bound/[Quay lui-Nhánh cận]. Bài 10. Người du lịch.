@@ -1,0 +1,66 @@
+/*Cho n thành phố đánh số từ 1 đến n và các tuyến đường giao thông hai chiều
+giữa chúng, mạng lưới giao thông này được cho bởi mảng C[1…n, 1…n] ở đây C[i]
+[j] = C[j][i] là chi phí đi đoạn đường trực tiếp từ thành phố i đến thành phố j. Một
+người du lịch xuất phát từ thành phố 1, muốn đi thăm tất cả các thành phố còn lại
+mỗi thành phố đúng 1 lần và cuối cùng quay lại thành phố 1. Hãy chỉ ra chi phí ít
+nhất mà người đó phải bỏ ra.*/
+namespace solve
+{
+	ll n, current_cost = 0, best_cost = INFF;
+	int visited[21] = {}, x[21], x_best[21], c[21][21];
+	void enter()
+	{
+		cin >> n;
+		FE(i, 1, n)
+			FE(j, 1, n)
+				cin >> c[i][j];
+		x[1] = 1;
+		visited[1] = 1;
+	}
+
+	void update_best_solution()
+	{
+		if (current_cost + c[x[n]][1] < best_cost)
+		{
+			best_cost = current_cost + c[x[n]][1];
+			FE(i, 1, n)
+				x_best[i] = x[i];
+		}
+	}
+	void printf_result()
+	{
+		if (best_cost == INFF)
+		{
+			cout << -1;
+			return ;
+		}
+		cout << best_cost << endl;
+		FE(i, 1, n)
+			cout << x_best[i] << " ";
+		cout << 1;
+	}
+	void branch_and_bound(int i)
+	{
+		if (current_cost >= best_cost)
+			return;
+		FE(j, 2, n)
+			if(!visited[j])
+			{
+				visited[j] = 1;
+				x[i] = j;
+				current_cost += c[x[i - 1]][j];
+				if (i == n)
+					update_best_solution();
+				else
+					branch_and_bound(i + 1);
+				current_cost -= c[x[i - 1]][j];
+				visited[j] = 0;
+			}
+	}
+	void process(void)
+	{
+		enter();
+		branch_and_bound(2);
+		printf_result();
+	}
+}
