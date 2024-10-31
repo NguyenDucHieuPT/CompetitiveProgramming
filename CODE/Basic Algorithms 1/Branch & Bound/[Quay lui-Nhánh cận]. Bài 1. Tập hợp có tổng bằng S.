@@ -1,0 +1,46 @@
+/*Xét tất cả các tập hợp các số nguyên dương có các phần tử khác nhau và không
+lớn hơn số n cho trước. Nhiệm vụ của bạn là hãy đếm xem có tất cả bao nhiêu
+tập hợp có số lượng phần tử bằng k và tổng của tất cả các phần tử trong tập hợp
+bằng s? Các tập hợp là hoán vị của nhau chỉ được tính là một. Ví dụ với n = 9, k =
+3, s = 23, {6, 8, 9} là tập hợp duy nhất thỏa mãn.*/
+namespace solve
+{
+	ll cnt = 0;
+	int n, k, s, current_sum = 0, len = 0;
+	void enter()
+	{
+		cin >> n >> k >> s;
+	}
+	void printf_result()
+	{
+		cout << cnt;
+	}
+	void update_result()
+	{
+		if (current_sum == s)
+			cnt++;
+	}
+	int mark[21], marked[21] = {};
+	void branch_and_bound(int i)
+	{
+		if (current_sum + i > s || i > n)
+			return;
+		FE(j, 0, 1)
+		{
+			current_sum += i * j;
+			len += j;
+			if (len == k)
+				update_result();
+			else
+				branch_and_bound(i + 1);
+			current_sum -= i * j;
+			len -= j;
+		}
+	}
+	void process(void)
+	{
+		enter();
+		branch_and_bound(1);
+		printf_result();
+	}
+}
