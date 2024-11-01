@@ -1,0 +1,50 @@
+/*Cho dãy số A[] = (a1, a2, .., an) và số tự nhiên K. Hãy đưa ra tất cả các dãy con 
+của dãy số A[] sao cho tổng các phần tử của dãy con đó đúng bằng K. Các phần 
+tử của dãy số A[] được giả thuyết là nguyên dương và không có các phần tử giống
+nhau. Ví dụ với dãy con A[] = {5, 10, 15, 20, 25}, K = 50 ta có 3 dãy con {5, 10, 
+15, 20}, {5, 20, 25}, {10, 15, 25}.*/
+namespace solve
+{
+	ll cnt = 0;
+	int n, k, a[16], current_sum = 0;
+	vi select;
+	void enter()
+	{
+		cin >> n >> k;
+		FE(i, 1, n)
+			cin >> a[i];
+		sort(a + 1, a + n + 1);
+	}
+	void printf_result()
+	{
+		cout << "[";
+		FT(x, select)
+		{
+			if (x != select[0])
+				cout << " ";
+			cout << x;
+		}
+		cout << "]\n";	
+	}
+	void branch_and_bound(int i)
+	{
+		if (current_sum + a[i] > k)
+			return;
+		select.push_back(a[i]);
+		current_sum += a[i];
+		if (current_sum == k)
+			printf_result();
+		else if (i < n)
+				branch_and_bound(i + 1);
+		current_sum -= a[i];
+		select.pop_back();
+		if (i < n)
+				branch_and_bound(i + 1);
+
+	}
+	void process(void)
+	{
+		enter();
+		branch_and_bound(1);
+	}
+}
