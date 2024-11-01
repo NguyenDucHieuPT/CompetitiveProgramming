@@ -1,0 +1,59 @@
+/*ho một mê cung được mô tả dưới dạng một ma trận nhị phân có N hàng và N 
+cột. Một con chuột bắt đầu tử ô (1, 1) và muốn di chuyển tới ô (N, N). Con chuột 
+chỉ được di chuyển sang trái, sang phải, lên trên và xuống dưới và chỉ được di 
+chuyển tới ô nào đó nếu ô đó có giá trị là 1. Bạn hãy in ra các cách đi hợp lệ của 
+con chuột, trong đó nếu con chuột đi sang phải thì nước đi được mô tả là chữ R, 
+và nếu con chuột đi xuống dưới thì nước đi được mô tả là chữ D, nếu đi sang trái 
+thì nước đi được mô tả là chữ L, nếu đi lên trên thì nước đi được mô tả là chữ U. 
+Nếu con chuột không thể đi xuống ô (N, N) thì in ra -1. Chú ý trên mỗi đường đi 
+con chuột chỉ có thể đi qua 1 ô nào đó đúng 1 lần.*/
+namespace solve
+{
+	ll cnt = 0;
+	int n, c[13][13], mark[13][13] = {};
+	char dir[] = {'D', 'R', 'U', 'L'};
+	vi road;
+	void enter()
+	{
+		cin >> n;
+		FE(i, 1, n)
+			FE(j, 1, n)
+				cin >> c[i][j];
+	}
+	void printf_result()
+	{
+		FT(x, road)
+			cout << (char) dir[x];
+		cout << endl;
+	}
+	pii select[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, - 1}};
+	void branch_and_bound(int dy, int dx)
+	{
+		if (dx < 1 || dx > n || dy > n || dy < 1)
+			return;
+		if (dx == n && dy == n)
+			printf_result();
+		FE(i, 0, 3)
+		{
+			int y = dy + select[i].fi, 
+				x = dx + select[i].se;
+			if (0 <= x && x <= n + 1 && 0 <= y && y <= n && c[y][x] && !mark[y][x])
+			{
+				mark[y][x] = 1;
+				road.push_back(i);
+				branch_and_bound(y, x);
+				road.pop_back();
+				mark[y][x] = 0;
+			}
+		}
+	}
+	void process(void)
+	{
+		enter();
+		mark[1][1] = 1;
+		if (c[1][1])
+			branch_and_bound(1, 1);
+		else
+			cout << -1;
+	}
+}
