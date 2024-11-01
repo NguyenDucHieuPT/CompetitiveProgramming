@@ -1,0 +1,54 @@
+/*Cho một mê cung được mô tả dưới dạng một ma trận nhị phân có N hàng và N 
+cột. Một con chuột bắt đầu tử ô (1, 1) và muốn di chuyển tới ô (N, N). Con chuột 
+chỉ được di chuyển xuống dưới hoặc sang phải và chỉ được di chuyển tới ô nào đó 
+nếu ô đó có giá trị là 1. Bạn hãy in ra các cách đi hợp lệ của con chuột, trong đó 
+nếu con chuột đi sang phải thì nước đi được mô tả là chữ R, và nếu con chuột đi 
+xuống dưới thì nước đi được mô tả là chữ D. Nếu con chuột không thể đi xuống ô 
+(N, N) thì in ra -1. Chú ý trên mỗi đường đi con chuột chỉ có thể đi qua 1 ô nào đó 
+đúng 1 lần.*/
+namespace solve
+{
+	ll cnt = 0;
+	int n, c[13][13];
+	char dir[] = {'D', 'R'};
+	vi road;
+	void enter()
+	{
+		cin >> n;
+		FE(i, 1, n)
+			FE(j, 1, n)
+				cin >> c[i][j];
+	}
+	void printf_result()
+	{
+		FT(x, road)
+			cout << (char) dir[x];
+		cout << endl;
+	}
+	void branch_and_bound(int dx, int dy)
+	{
+		if (dx > n || dy > n || c[dx][dy] == 0)
+			return;
+		FE(j, 0, 1)
+		{
+			road.push_back(1 - j);
+			if (dx == n && dy == n)
+			{
+				printf_result();
+				return;
+			}
+			road.push_back(1 - j);
+			if (dx + j <= n && dy + 1 - j <= n)
+				branch_and_bound(dx + j, dy + 1 - j);
+			road.pop_back();
+		}
+	}
+	void process(void)
+	{
+		enter();
+		if (c[1][1])
+			branch_and_bound(1, 1);
+		else
+			cout << -1;
+	}
+}
