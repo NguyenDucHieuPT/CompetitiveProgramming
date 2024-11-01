@@ -1,11 +1,16 @@
+<<<<<<< HEAD
+    //Tính tổng hàm S(n) = 1 + 2 + 3 + 4 + .. + n bằng đệ quy. Nếu bạn chưa biết thì S(n) có thể tính nhanh bằng công thức S(n) = n * (n + 1) / 2
+	int sum(int n)
+=======
     //Tính tổng hàm S(n) = 1 + 2 + 3 + 4 + .. + n bằng đệ quy. Nếu bạn chưa biết thì S(n) có thể tính nhanh bằng công thức S(n) = n * (n + 1) / 2
 	ll sum(ll n)
+>>>>>>> 7e3c518cbed3480c34a44573a879c523a5a71855
 	{
 		if (n < 2)
 			return n;
 		return n + sum(n - 1);
 	}
-	void process(void)
+	vđqoid process(void)
 	{
 		ll n;
 		cin >> n;
