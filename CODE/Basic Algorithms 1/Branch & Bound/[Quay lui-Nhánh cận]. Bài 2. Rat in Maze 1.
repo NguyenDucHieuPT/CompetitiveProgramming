@@ -27,19 +27,20 @@ namespace solve
 	}
 	void branch_and_bound(int dx, int dy)
 	{
-		if (dx > n || dy > n || c[dx][dy] == 0)
+		if (dx > n || dy > n)
 			return;
-		FE(j, 0, 1)
+		if (dx == n && dy == n)
+			printf_result();
+		if (dx + 1 <= n && c[dx + 1][dy])
 		{
-			road.push_back(1 - j);
-			if (dx == n && dy == n)
-			{
-				printf_result();
-				return;
-			}
-			road.push_back(1 - j);
-			if (dx + j <= n && dy + 1 - j <= n)
-				branch_and_bound(dx + j, dy + 1 - j);
+			road.push_back(0);
+			branch_and_bound(dx + 1, dy);
+			road.pop_back();
+		}
+		if (dy + 1 <= n && c[dx][dy + 1])
+		{
+			road.push_back(1);
+			branch_and_bound(dx, dy + 1);
 			road.pop_back();
 		}
 	}
