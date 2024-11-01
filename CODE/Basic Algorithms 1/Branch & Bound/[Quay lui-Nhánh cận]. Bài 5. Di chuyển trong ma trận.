@@ -1,0 +1,43 @@
+/*Cho ma trận A[M][N]. Nhiệm vụ của bạn là đếm tất cả các đường đi từ phần tử 
+A[0][0] đến phần tử A[M-1][N-1]. Bạn chỉ được phép dịch chuyển xuống dưới hoặc
+sang phải phần tử liền kề với vị trí hiện tại.*/
+namespace solve
+{
+	ll cnt = 0;
+	int n, m, c[13][13];
+	void enter()
+	{
+		cin >> n >> m;
+		FE(i, 1, n)
+			FE(j, 1, m)
+				cin >> c[i][j];
+	}
+	void printf_result()
+	{
+		cout << cnt;
+	}
+	void update_result()
+	{
+		cnt++;
+	}
+	void branch_and_bound(int dy, int dx)
+	{
+		if (dx > m || dy > n)
+			return;
+		if (dy == n && dx == m)
+			update_result();
+		if (dx + 1 <= m && c[dy][dx + 1])
+			branch_and_bound(dy, dx + 1);
+		if (dy + 1 <= n && c[dy + 1][dx])
+			branch_and_bound(dy + 1, dx);
+	}
+	void process(void)
+	{
+		enter();
+		if (c[1][1])
+			branch_and_bound(1, 1);
+		else
+			cout << -1;
+		printf_result();
+	}
+}
