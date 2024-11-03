@@ -1,0 +1,52 @@
+/*Cho một bàn cờ vua có kích thước n * n. Vấn đề đặt ra rằng, có n quân hậu, bạn
+cần đếm số cách đặt n quân hậu này lên bàn cờ sao cho với 2 quân hậu bất kì,
+chúng không “ăn” nhau.*/
+
+namespace solve
+{
+	ll cnt = 0;
+	int n;
+	void enter()
+	{
+		cin >> n;
+	}
+	void printf_result()
+	{
+		cout << cnt;
+	}
+	int IsInCol[13], IsInDiag1[26], IsInDiag2[26], curr = 0;
+	void branch_and_bound(int curRow)
+	{
+		FE(curCol, 1, n)
+		{
+			int curDiag1 = curCol + curRow,
+				curDiag2 = curCol - curRow + 13;
+
+			if (IsInCol[curCol] || IsInDiag1[curDiag1] || IsInDiag2[curDiag2])
+				continue;
+
+			curr++;
+			IsInCol[curCol] = 1;
+			IsInDiag1[curDiag1] = 1;
+			IsInDiag2[curDiag2] = 1;
+
+			if (curr == n)
+				cnt++;
+			else
+				branch_and_bound(curRow + 1);
+			curr--;
+			IsInCol[curCol] = 0;
+			IsInDiag1[curDiag1] = 0;
+			IsInDiag2[curDiag2] = 0;
+		}
+	}
+	void process(void)
+	{
+		enter();
+		memset(IsInCol, 0, sizeof(IsInCol));
+		memset(IsInDiag1, 0, sizeof(IsInDiag1));
+		memset(IsInDiag2, 0, sizeof(IsInDiag2));
+		branch_and_bound(1);
+		printf_result();
+	}
+}
