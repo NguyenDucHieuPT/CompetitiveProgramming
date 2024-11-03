@@ -1,0 +1,53 @@
+/* Cho mảng các số nguyên A[] gồm N phần tử. Hãy chia mảng số nguyên A[] thành 
+K tập con khác rỗng sao cho tổng các phần tử của mỗi tập con đều bằng nhau. 
+Mỗi phần tử thuộc tập con xuất hiện duy nhất một lần trong tất cả các tập con. Ví
+ dụ với A[] = {2, 1, 4, 5, 6}, K =3 ta có kết quả {2, 4}, {1, 5}, {6}.*/
+namespace solve
+{
+	int a[21], n, k, TotalSum = 0, TargetSum, used[21] = {};
+	void enter()
+	{
+		cin >> n >> k;
+		FE(i, 1, n)
+		{
+			cin >> a[i];
+			TotalSum += a[i];
+		}
+		sort(a + 1, a + n + 1, greater <int> ());
+	}
+	bool branch_and_bound(int CurrentSum ,int CurrK, int start)
+	{
+		if (CurrK == 0)
+			return 1;
+
+		if (CurrentSum == TargetSum)
+			return branch_and_bound(0, CurrK - 1, 1);
+		
+		FE(i, start, n)
+			if (used[i] != 1 && CurrentSum + a[i] <= TargetSum)
+			{
+				used[i] = 1;
+				if (branch_and_bound(CurrentSum + a[i], CurrK, i + 1))
+					return true;
+				used[i] = 0;
+			}
+		return 0;
+	}
+	void printf_result()
+	{
+		if (TotalSum % k)
+			cout << 0;
+		else
+		{
+			TargetSum = TotalSum / k;
+			cout << branch_and_bound(0, k, 1);
+		}
+	}
+	
+	void process(void)
+	{
+		enter();
+
+		printf_result();
+	}
+}
