@@ -1,0 +1,31 @@
+//https://oj.vnoi.info/problem/bedao_r03_prime
+namespace solve
+{
+	int a, b;
+	void enter()
+	{
+		cin >> a >> b;
+	}
+	const int MaxAB = 2e5 + 1;
+	vector <bool> IsPrime(MaxAB, 1);
+	void sieve_prime()
+	{
+		IsPrime[1] = IsPrime[0] = 0;
+		FE(i, 2, sqrt(b))
+			if(IsPrime[i])
+				for(int j = i * 2; j <= b; j += i)
+					IsPrime[j] = 0;
+	}
+	void print_prime()
+	{
+		FE(i, a, b)
+			if(IsPrime[i])
+				cout << i << endl;
+	}
+	void process(void)
+	{
+		enter();
+		sieve_prime();
+		print_prime();
+	}
+}
