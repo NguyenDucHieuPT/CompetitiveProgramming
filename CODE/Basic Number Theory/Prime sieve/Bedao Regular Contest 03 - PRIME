@@ -1,0 +1,48 @@
+//https://oj.vnoi.info/problem/bedao_r03_prime
+namespace solve
+{
+	const int MAXN = 1e7 + 1;
+	int q;	
+	void enter()
+	{
+		cin >> q;
+	}
+	vector <bool> IsPrime(MaxN, 1);
+	int CountPrimeDivisors[MaxN] = {}, cnt[MaxN][8] = {};
+	void sieve_prime()
+	{
+		IsPrime[1] = IsPrime[0] = 0;
+		FE(i, 2, MaxN - 1)
+			if(IsPrime[i])
+			{
+				CountPrimeDivisors[i]++;
+				for(int j = i * 2; j < MaxN; j += i)
+				{
+					IsPrime[j] = 0;
+					CountPrimeDivisors[j]++;
+				}
+			}
+	}
+	void creat_data()
+	{
+		FE(j, 1, 7)
+		{
+			FE(i, 1, MaxN)
+				cnt[i][j] = cnt[i - 1][j] + (CountPrimeDivisors[i] == j);
+		}
+	}
+	void query()
+	{
+		int a, b, k;
+		cin >> a >> b >> k;
+		cout << cnt[b][k] - cnt[a - 1][k] << endl; 
+	}
+	void process(void)
+	{
+		enter();
+		sieve_prime();
+		creat_data();
+		while(q--)
+			query();
+	}
+}
