@@ -1,31 +1,27 @@
 //https://oj.vnoi.info/problem/bedao_m22_b
 namespace solve
 {
-	void Euler()
+	int a[MaxN], n;
+	void enter()
 	{
-		int n;
 		cin >> n;
-		ll res = n;
-		int i = 1;
-		while(n > 1 && i < sqrt(n))
+		FE(i, 1, n)
+			cin >> a[i];
+	}
+	int cnt[24] = {};
+	void Modulo()
+	{
+		ll res = 0;
+		FE(i, 6, n)
 		{
-			i++;
-			if(n % i == 0)
-			{
-				res = (res / i) * (i - 1);
-				while(n % i == 0)
-					n /= i;
-			}
+			res += cnt[a[i] % 23];
+			cnt[a[i - 5] % 23]++;
 		}
-		if (n > 1)
-			res = (res / n) * (n - 1);
-		cout << res << endl;
+		cout << res;
 	}
 	void process(void)
 	{
-		int t;
-		cin >> t;
-		while(t--)
-			Euler();
+		enter();
+		Modulo();
 	}
 }

@@ -1,0 +1,31 @@
+//https://oj.vnoi.info/problem/etf
+namespace solve
+{
+	void Euler()
+	{
+		int n;
+		cin >> n;
+		ll res = n;
+		int i = 1;
+		while(n > 1 && i < sqrt(n))
+		{
+			i++;
+			if(n % i == 0)
+			{
+				res = (res / i) * (i - 1);
+				while(n % i == 0)
+					n /= i;
+			}
+		}
+		if (n > 1)
+			res = (res / n) * (n - 1);
+		cout << res << endl;
+	}
+	void process(void)
+	{
+		int t;
+		cin >> t;
+		while(t--)
+			Euler();
+	}
+}
