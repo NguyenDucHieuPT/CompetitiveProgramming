@@ -1,0 +1,8 @@
+long long res = 1;
+for (int i = 1; i <= n; i++) res = res * i;
+for (int i = 1; i <= k; i++) res = res / i;
+for (int i = 1; i <= n-k; i++) res = res / i;
+
+long long res = 1;
+for (int i = 1; i <= k; i++)
+    res = res * (n - i + 1) / i;

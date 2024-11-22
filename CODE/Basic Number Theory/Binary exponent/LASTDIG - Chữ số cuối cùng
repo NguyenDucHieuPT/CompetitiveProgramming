@@ -1,0 +1,19 @@
+//https://www.spoj.com/problems/LASTDIG/
+namespace solve
+{
+	void query()
+	{
+		int a, b;
+		cin >> a >> b;
+		b %= 4;
+		a %= 10;
+		cout << ((int) pow(a, b)) % 10 << endl;
+	}
+	void process(void)
+	{
+		int t;
+		cin >> t;
+		while(t--)
+			query();
+	}
+}
