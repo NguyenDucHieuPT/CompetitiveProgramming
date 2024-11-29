@@ -30,10 +30,9 @@ const int MOD = 1e9 + 7;
 namespace solve
 {
 	const int n_max = 1e5 + 5;
-	int m, n, s, t, parent[n_max] = {};
+	int m, n, parent[n_max] ={};
 	vector <int> adj[n_max];
-	bool visited[n_max];
-	void init()
+	void init(int &s, int &t)
 	{
 		cin >> n >> m >> s >> t;
 		FE(i, 1, m)
@@ -41,13 +40,21 @@ namespace solve
 			int x, y;
 			cin >> x >> y;
 			adj[x].push_back(y);
-			adj[y].push_back(x);
 		}
 	}
-	void trace()
+	void DFS(int u)
 	{
-		vector <int> path;
+		for(int v : adj[u])
+			if(!parent[v] && v != parent[u])
+			{
+				parent[v] = u;
+				DFS(v);
+			}
+	}
+	void trace(int s, int t)
+	{
 		parent[s] = 0;
+		vector<int> path;
 		while(t)
 		{
 			path.push_back(t);
@@ -57,34 +64,15 @@ namespace solve
 		for(int x : path)
 			cout << x << " ";
 	}
-	void BFS()
-	{
-		int u = s;
-		queue<int> q;
-		q.push(u);
-		while(!q.empty())
-		{
-			u = q.front();
-			q.pop();
-			if (u == t)
-			{
-				trace();
-				return ;
-			}
-			for(int v : adj[u])
-				if (!parent[v])
-				{
-					q.push(v);
-					parent[v] = u;
-				}
-		}
-		cout << "Ko co duong di \n";
-	}
 	void process(void)
 	{
-		init();
-		//memset(visited, false, sizeof(visited));
-		BFS();
+		int s, t;
+		init(s, t);
+		DFS(s);
+		if (!parent[t])
+			cout << "Ko co duong di \n";
+		else
+			trace(s, t);
 	}
 }
 
