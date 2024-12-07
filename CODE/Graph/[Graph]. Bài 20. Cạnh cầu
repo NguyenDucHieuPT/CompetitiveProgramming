@@ -34,6 +34,7 @@ namespace solve
 	bool visited[n_max] = {};
 	vector <int> adj[n_max];
 	int start = 0, m, n;
+	vector <pair<int, int>> canh;
 	void init()
 	{
 		cin >> n >> m;
@@ -43,40 +44,33 @@ namespace solve
 			cin >> x >> y;
 			adj[x].push_back(y);
 			adj[y].push_back(x);
+			canh.push_back({x, y});
 		}
 	}
-	void DFS(int u)
+	void DFS(int u, int u0, int v0)
 	{
 		visited[u] = true;
 		for(int v: adj[u])
-			if(!visited[v])
+			if(!visited[v] && !(u == u0 && v == v0))
 			{
 				visited[v] = true;
-				DFS(v);
+				DFS(v, u0, v0);
 			}
 	}
-	bool Check(int u)
+	bool Check(int u, int v)
 	{
 		memset(visited, false, sizeof(visited));
-		int v = adj[u][0];
-		adj[u].erase(adj[u].begin());
-		DFS(u);
-		adj[u].push_back(v);
-		cout << u << " " << v << endl;
-		FT(i, adj[u])
-			cout << i << " ";
-		cout << endl;
+		DFS(u, u, v);
+		//cout << u << " " << v << endl;
 		return (!visited[v]);
 	}
 	void process(void)
 	{
 		init();
 		int res = 0;
-		//Check(10, 0);
-		FE(i, 1, n)
-			FN(adj[i].size())
-				Check(i);
-		//cout << res;
+		for(pair<int, int> x : canh)
+			res += Check(x.fi, x.se);
+		cout << res;
 	}
 
 }

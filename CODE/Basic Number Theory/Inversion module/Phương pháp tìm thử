@@ -1,0 +1,7 @@
+	int inversion_module(int a, int m)
+	{
+		for(int i = 1; i <= INF; i++)
+			if (a * i % m == 1)
+				return i;
+		return -1;
+	}

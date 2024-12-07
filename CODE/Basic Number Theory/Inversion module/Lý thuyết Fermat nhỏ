@@ -1,0 +1,19 @@
+	long long mod_exp(int a, int b, int c)//a^b%c
+	{
+		long long res = 1;
+		a = a % c;
+		while(b)
+		{
+			if (b % 2)
+				res = (res * a) % c;
+			a = (a * a) % c;
+			b /= 2; 
+		};
+		return res;
+	}
+	int inversion_module3(int a, int m)
+	{
+		if (__gcd(a, m) != 1)
+			return -1;
+		return mod_exp(a, m - 2, m);
+	}
