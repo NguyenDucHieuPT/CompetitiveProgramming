@@ -1,0 +1,13 @@
+	int euler_nonfunction(int n)
+	{
+		int res = n;
+		FE(i, 2, sqrt(n))
+			if(n % i == 0)
+			{
+				res -= res / i;
+				while(n % i == 0)
+					n /= i;
+			}
+		if (n > 1) res -= res / n;
+		return res;
+	}
