@@ -1,0 +1,78 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using ld = long double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MOD = 1e9 + 7;
+
+namespace solve
+{
+	bool cmp(string a, string b) 
+	{
+		if (sz(a) == sz(b)) 
+			return a < b; 
+		else
+			return (sz(a) < sz(b));
+	}
+	void process(void)
+	{
+		string str;
+		getline(cin, str);
+		str.push_back(' ');
+		map <string, bool> cnt;
+		string word;
+		vector <string> result;
+		FL(i, 0, sz(str))
+		{
+			if(str[i] == ' ')
+			{	
+				if (!cnt[word])
+					result.push_back(word);
+				cnt[word] = 1;
+				word = "";
+			}
+			else
+				word.push_back(str[i]);
+		}
+		for(map<string, bool> :: iterator x = cnt.begin(); x != cnt.end(); x++)
+			cout << (*x).first << " ";
+		cout << endl;
+		sort(result.begin(), result.end(), cmp);
+		for(vector<string>::iterator x = result.begin(); x != result.end(); x++)
+			cout << (*x) << " ";
+
+	}
+}
+
+
+HaCam
+{
+    fastio;
+    file("B");
+    solve::process();
+
+    
+    return 0;
+}
