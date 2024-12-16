@@ -31,22 +31,21 @@ namespace solve
 {
 	void process(void)
 	{
-		string str;
-		getline(cin, str);
-		map <char, int> cnt;
-		pair <char, int> ch_min = {' ',INF}, ch_max= {' ',-INF};
-		for(int i = 0; i < (int) str.size(); i++)
-			cnt[str[i]]++;
-		for(int i = 0; i < (int) str.size(); i++)
-		{
-			int k = cnt[str[i]];
-			if (k > ch_max.second || (k == ch_max.second && toupper(str[i]) > toupper(ch_max.first)))
-				ch_max = {str[i], k};
-			if (k < ch_min.second || (k == ch_min.second && toupper(str[i]) > toupper(ch_min.first)))
-				ch_min = {str[i], k};
-		}
-		cout << ch_max.first << " " << ch_max.second << endl;
-		cout << ch_min.first << " " << ch_min.second << endl;
+		string str1, str2, Result1, Result2;
+		getline(cin, str1);
+		getline(cin, str2);
+		pair<bool, bool> cnt[256] = {};
+		FL(i, 0, sz(str1))
+			cnt[str1[i]].first = 1;
+		FL(i, 0, sz(str2))
+			cnt[str2[i]].second = 1;
+		FE(i, 0, 255)
+			if (cnt[i].first && !cnt[i].second) 
+				cout << (char) i;
+		cout << endl;
+		FE(i, 0, 255)
+			if (!cnt[i].first && cnt[i].second) 
+				cout <<(char) i;
 	}
 }
 
