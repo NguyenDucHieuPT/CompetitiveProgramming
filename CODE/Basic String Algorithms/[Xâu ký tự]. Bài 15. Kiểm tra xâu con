@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using ld = long double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MOD = 1e9 + 7;
+
+namespace solve
+{
+	vector<int> LPS;
+
+	//FUNCTION TO PREPARE THE LPS TABLE
+	void PrepareLPS(const string& b)
+	{
+		int lenb = b.size();
+		LPS.resize(lenb, 0);
+		int length = 0;
+		FL(i, 1, lenb)
+		{
+			//ĐIỀU CHỈNH ĐỘ DÀI TIỀN TỐ / HẬU TỐ KHÔNG KHỚP
+			while(length > 0 && b[length] != b[i])
+				length = LPS[length - 1];
+			//NẾU KÍ TỰ KHỚP TĂNG ĐỘ DÀI TIỀN TỐ/HẬU TỐ
+			if(b[length] == b[i])
+				length++;
+			LPS[i] = length;
+		}
+	}
+	void KMP(const string& a, const string& b)	
+	{
+		int lena = a.size(), lenb = b.size(); // ĐỘ DÀI XÂU A VÀ B
+		int pointer = 0; // CON TRỎ THEO DÕI VỊ TRÍ TRONG XÂU B
+		FL(i, 0, lena)
+		{
+			//ĐIỀU CHỈNH CON TRỎ NẾU KHÔNG KHỚP
+			while(pointer > 0 && b[pointer] != a[i])
+				pointer = LPS[pointer - 1];
+			//NẾU KÍ TỰ KHỚP THÌ TĂNG CON TRỎ
+			if (a[i] == b[pointer])
+				pointer++;
+			//NẾU TOÀN BỘ CHUỖI B ĐƯỢC TÌM THẤY TRONG A <=> LENB == POINTER
+			if (pointer == lenb)
+			{
+				cout << (i - lenb + 2) << " ";//VỊ TRÍ BẮT ĐẦU(ĐẾM TỪ 1);
+				pointer = LPS[pointer - 1]; // ĐẶT LẠI CON TRỎ ĐỂ TÌM TIẾP
+			}
+		}
+	}
+	void process(void)
+	{
+		string a, b;
+		cin >> a >> b;
+		PrepareLPS(b);
+		KMP(a, b);
+	}
+}
+
+
+HaCam
+{
+    fastio;
+    file("B");
+    solve::process();
+
+    
+    return 0;
+}
