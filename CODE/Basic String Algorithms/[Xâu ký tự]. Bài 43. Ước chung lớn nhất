@@ -25,27 +25,36 @@ using vi = vector<int>;
 const int INF = 1e9 + 1;
 const ll INFF = 1e18 + 1;
 const int MaxN = 1e6 + 1;
-const int MOD = 1e9 + 7;
+const ll MOD = 1e9 + 7;
 
 namespace solve
 {
+	ll mod(string n, ll m)
+	{
+
+		ll ResMod = 0;
+		FL(i, 0, sz(n))
+			ResMod = (ResMod * (10 % m) + (n[i] - '0') % m) % m;
+
+		if (ResMod < 0) ResMod += m;
+		return ResMod;
+	}
+	ll gcd(ll n, ll m)
+	{
+		while(m != 0)
+		{
+			ll r = n % m;
+			n = m;
+			m = r;
+		}
+		return n;
+	}
 	void process(void)
 	{
-		int MODPOW[4] = {6, 2, 4, 8};
-		string str;
-		getline(cin, str);
-		int LastDigit = 0;
-		reverse(str.begin(), str.end());
-		for(int i = 0; i < sz(str); i++)
-			if (str[i] != '0')
-			{
-				if (i == 0)
-					LastDigit += 1;
-				else
-					LastDigit += MODPOW[i % 4];
-			}
-		//cout << LastDigit << endl;
-		cout << (LastDigit % 5 ? "NO" : "YES");	
+		string n;
+		ll m;
+		cin >> n >> m;
+		cout << gcd(mod(n, m), m);
 	}
 	
 }
