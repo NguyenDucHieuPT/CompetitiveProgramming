@@ -29,26 +29,50 @@ const ll MOD = 1e9 + 7;
 
 namespace solve
 {
-	vector<int> prime_factor(int n)
+	vector<int> PrimeFactor[10];
+	int factorial[10], k = 0;
+	void processing()
 	{
-		int i = 2;
-		vector<int> res;
-		while(i <= sqrt(n))
+		factorial[0] = 1;
+		FE(i, 1, 9)
+			factorial[i] = i * factorial[i - 1];
+	}
+	void prime_factor(int i)
+	{
+		if (i == 2 || i == 3 || i == 5 || i == 7)
 		{
-			while(n % i == 0)
-			{
-				res.push_back(i)
-			}
-			i++;
+			PrimeFactor[i] = {i};
+			k = i;
+			return;
 		}
+		int n = factorial[i];
+		for(int j = k; j > 1; j--)
+			while(n % factorial[j] == 0)
+			{
+				n /= factorial[j];
+				PrimeFactor[i].push_back(j);
+			}
+	}
+
+	vector<int> Add2Vector(vector<int> a, vector<int> b)
+	{
+		FL(i, 0, sz(b))
+			a.push_back(b[i]);
+		return a;
 	}
 	void process(void)
 	{
-		ll a, x, y;
-    	cin >> a >> x >> y;
-	    ll gcd_xy = __gcd(x, y);
-	    for(ll i = 0; i < gcd_xy; i++)
-	    	cout << a;
+		processing();
+		FE(i, 2, 9)
+			prime_factor(i);
+		vector<int> res;
+		string str;
+		cin >> str;
+		FL(i, 0, sz(str))
+			res = Add2Vector(res , PrimeFactor[str[i] - '0']);
+		sort(res.begin(), res.end(), greater<int>());
+		FL(i, 0, sz(res))
+			cout << res[i];
 	}	
 }
 
