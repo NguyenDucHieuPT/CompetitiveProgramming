@@ -1,0 +1,101 @@
+https://oj.vnoi.info/problem/dttui1
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using ld = long double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 2e6 + 1;
+const ll MOD = 1e9 + 7;
+namespace solve
+{
+	const int N = 4e1 + 1;
+	pair<int, ll > B[MaxN];
+	int SumWB[MaxN], SumWA[MaxN], w[N], v[N], SizeA = 0, SizeB = 0, n, m;
+	ll SumVA[MaxN], MaxSumVB[MaxN];
+	void TryL(int i, int SumW, ll SumV)
+	{
+		if (SumW > m)
+			return;
+		if (i > n / 2)
+		{
+			SizeA++;
+			SumWA[SizeA] = SumW;
+			SumVA[SizeA] = SumV;
+		}
+		else
+		{
+			TryL(i + 1, SumW, SumV);
+			TryL(i + 1, SumW + w[i], SumV + v[i]);
+		}
+	}
+	void TryR(int i, int SumW, ll SumV)
+	{
+		if (SumW > m)
+			return;
+		if (i > n)
+		{
+			SizeB++;
+			B[SizeB].first = SumW;
+			B[SizeB].second = SumV;
+		}
+		else
+		{
+			TryR(i + 1, SumW, SumV);
+			TryR(i + 1, SumW + w[i], SumV + v[i]);
+		}
+	}
+	void process(void)
+	{
+		cin >> n >> m;
+		FE(i, 1, n)
+			cin >> w[i] >> v[i];
+		TryL(1, 0, 0);
+		TryR(n / 2 + 1, 0, 0);
+		sort(B + 1, B + SizeB + 1);
+		MaxSumVB[0] = 0;
+		FE(i, 1, SizeB)
+		{
+			SumWB[i] = B[i].first;
+			MaxSumVB[i] = max(B[i].second, MaxSumVB[i - 1]);
+		}
+		ll MaxValue = 0;
+		FE(i, 1, SizeA)
+		{
+			int j = upper_bound(SumWB + 1, SumWB + SizeB + 1, m - SumWA[i]) - SumWB - 1;
+			MaxValue = max(MaxValue, SumVA[i] + MaxSumVB[j]);
+		}
+		cout << MaxValue << endl;
+	}	
+}
+
+
+HaCam
+{
+    fastio;
+    file("B");
+    solve::process();
+
+    
+    return 0;
+}
