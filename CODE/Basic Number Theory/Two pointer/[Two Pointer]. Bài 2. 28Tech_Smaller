@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using ld = long double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e7 + 1;
+const ll MOD = 1e9 + 7;
+namespace solve
+{
+	int a[MaxN] = {}, b[MaxN] = {}, n, m;
+	void process(void)
+	{
+		cin >> n >> m;
+		FE(i, 1, n)
+			cin >> a[i];
+		FE(i, 1, m)
+			cin >> b[i];
+		int pointer = 0;
+		FE(i, 1, m)
+		{
+			while(pointer < n && b[i] > a[pointer + 1])
+				pointer++;
+			cout << pointer << " ";
+		}
+
+	}	
+}
+
+
+HaCam
+{
+    fastio;
+    file("B");
+    solve::process();
+
+    
+    return 0;
+}
