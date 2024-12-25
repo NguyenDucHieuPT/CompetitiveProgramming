@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using ld = long double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MOD = 1e9 + 7;
+
+namespace solve 
+{
+    vector<int> a, d, MarkedArray;
+    int n, m, q;
+
+    void query() 
+    {
+        int l, r, k;
+        cin >> l >> r >> k;
+        MarkedArray[l] += k;
+        MarkedArray[r + 1] -= k;
+    }
+    void prefix_sum()
+    {
+        d.resize(n);
+        d[0] = MarkedArray[0];
+        FL(i, 1, n)
+            d[i] = d[i - 1] + MarkedArray[i];
+    }
+    void process() 
+    {
+        cin >> n >> q;
+        a.resize(n);
+        d.resize(n);
+        FL(i, 0, n)
+            cin >> a[i];
+        MarkedArray.assign(n + 1, 0);
+        while(q--)
+            query();
+        prefix_sum();
+        FL(i, 0, n)
+        {
+            a[i] = a[i] + d[i];
+            cout << a[i] << " ";
+        }
+
+    }
+}
+
+int main() {
+    fastio;
+    file("B");
+    solve::process();
+    return 0;
+}
