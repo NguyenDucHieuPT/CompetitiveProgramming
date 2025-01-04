@@ -1,0 +1,84 @@
+https://www.spoj.com/problems/ELEVTRBL/
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using db = double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MOD = 1e9 + 7;
+
+namespace solve 
+{
+    const int MN = 1e6 + 1;
+    int nb[MN] = {},
+        dx[2];
+    bool visited[MN];
+    int f, s, g, u, d;
+
+    int BFS()
+    {
+        queue <int> q;
+        visited[u] = 1;
+        q.push(s);
+        while(!q.empty())
+        {
+            int x = q.front();
+            q.pop();
+            if (x == g)
+                return nb[x];
+            for(int k = 0; k <= 1; k++)
+            {
+                int y = x + dx[k];
+                if (y < 1 || y > f)continue;
+
+                if (!visited[y])
+                {
+                    q.push(y);
+                    nb[y] = nb[x] + 1;
+                    visited[y] = 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    void process(void)
+    {
+        cin >> f >> s >> g >> u >> d;
+        dx[0] = -d;
+        dx[1] = +u;
+        int ans = BFS();
+        if (ans != -1)
+            cout << ans;
+        else
+            cout << "use the stairs";
+    }
+}
+
+int main() {
+    fastio;
+    //file("B");
+    solve::process();
+    return 0;
+}

@@ -1,0 +1,78 @@
+https://lequydon.ntucoder.net/Submission/Submit/?problemid=4601
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using db = double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MOD = 1e9 + 7;
+
+namespace solve 
+{
+    const int MaxMN = 1e5 + 1;
+    int result = 0;
+    vector<int> adj[MaxMN];
+    int visited[MaxMN] = {};
+    void BFS(int s)
+    {
+        result++;
+        queue <int> q;
+        q.push(s);
+        visited[s] = true;
+        while (!q.empty())
+        {
+            int u = q.front();
+            q.pop();
+            for(vector<int>::iterator v = adj[u].begin(); v!=adj[u].end(); v++)
+                if (!visited[*v])
+                {
+                    visited[*v] = true;
+                    q.push(*v);
+                }
+        }
+    }
+    void process() 
+    {
+        int n, m;
+        cin >> n >> m;
+        while(m--)
+        {
+            int x, y;
+            cin >> x >> y;
+            adj[x].push_back(y);
+            adj[y].push_back(x);
+        }
+        for(int i = 1; i <= n; i++)
+            if (!visited[i])
+                BFS(i);
+        cout << result;
+    }
+}
+
+int main() {
+    fastio;
+    file("B");
+    solve::process();
+    return 0;
+}

@@ -1,0 +1,93 @@
+https://oj.vnoi.info/problem/vmunch
+#include <bits/stdc++.h>
+using namespace std;
+#define fi first
+#define se second
+#define BIT(x, i) ((x) & (1 << (i)))
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define file(name)  if (fopen (name".inp", "r") ) { freopen (name".inp", "r", stdin); freopen (name".out", "w", stdout); } else freopen (name".inp", "w", stdin);
+#define FL(i,l,r) for (int i=l;i<r;i++)
+#define FE(i,l,r) for (int i=l;i<=r;i++)
+#define FR(i,r,l) for (int i=r-1;i>=l;i--)
+#define FT(x,a) for (auto &x: a)
+#define ALL(v) (v).begin(), (v).end()
+#define sz(x) (int)(x).size()
+#define HaCam int main(void)
+
+using ll = long long;
+using db = double;
+using st = string;
+using pii = pair<int, int>;
+using vi = vector<int>;
+
+//author Hieu Soc
+//school THPT Hung Hoa
+
+const int INF = 1e9 + 1;
+const ll INFF = 1e18 + 1;
+const int MaxN = 1e6 + 1;
+const int MOD = 1e9 + 7;
+
+namespace solve 
+{
+    const int MN = 201;
+    char a[MN][MN];
+    int dx[] = {-1, 0, 0, 1},
+        dy[] = {0, 1, -1, 0},
+        d[MN][MN];
+
+    int BFS(pair<int, int> b, pair<int, int> c)
+    {
+        queue<pii> q;
+        int u = b.first, v = b.second;
+        q.push({u, v});
+        a[u][v] = '*'; 
+        while(!q.empty())
+        {
+            int x = q.front().first,
+                y = q.front().second;
+            q.pop();
+            //cout << x << " " << y << endl;
+            for(int k = 0; k < 4; k++)
+            {
+                int xx = x + dx[k],
+                    yy = y + dy[k];
+                if (c.first == xx && c.second == yy)
+                {
+                    return d[x][y] + 1;
+                }
+                if (a[xx][yy] == '.')
+                {
+                    d[xx][yy] = d[x][y] + 1;
+                    a[xx][yy] = '*'; 
+                    q.push({xx, yy});
+                }
+            }
+        }
+        return 1;
+    }
+    void process(void)
+    {
+        memset(a, 0, sizeof(a));
+        int n, m;
+        pair<int, int> b, c;
+        cin >> n >> m;
+        for(int i = 1; i <= n; i++)
+            for(int j = 1; j <= m; j++)
+            {
+                cin >> a[i][j];
+                if (a[i][j] == 'B')
+                    b = {i, j};
+                if (a[i][j] == 'C')
+                    c = {i, j};
+            }
+        cout << BFS(b, c);
+    }
+}
+
+int main() {
+    fastio;
+    //file("B");
+    solve::process();
+    return 0;
+}
